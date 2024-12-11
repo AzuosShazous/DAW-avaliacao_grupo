@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Lista de Livros</h2>
+<a href="{% url 'criar_livro' %}">Adicionar livro</a>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>ISBN</th>
+            <th>Ano de Publicação</th>
+            <th>Editora</th>
+            <th>Gênero</th>
+            <th>Autores</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for livro in livros %}
+        <tr>
+            <td>{{ livro.titulo }}</td>
+            <td>{{ livro.isbn }}</td>
+            <td>{{ livro.ano_publicacao }}</td>
+            <td>
+                {% if livro.editora %}
+                    {{ livro.editora.nome }}
+                {% else %}
+                    Nenhuma editora
+                {% endif %}
+            </td>
+            <td>
+                {% if livro.genero %}
+                    {{ livro.genero.nome }}
+                {% else %}
+                    Nenhum gênero
+                {% endif %}
+            </td>
+            <td>
+                {% if livro.autores.exists %}
+                    {{ livro.autores.all|join:", " }}
+                {% else %}
+                    Nenhum autor
+                {% endif %}
+            </td>            
+            <td>
+                <a href="{% url 'atualizar_livro' livro.id %}">Editar</a> |
+                <a href="{% url 'deletar_livro' livro.id %}">Excluir</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<h2>Relação de Livros e Autores</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Livro</th>
+            <th>Autor</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for livro in livros %}
+            {% for autor in livro.autores.all %}
+                <tr>
+                    <td>{{ livro.titulo }}</td>
+                    <td>{{ autor.nome }}</td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Lista de Empréstimos</h2>
+<a href="{% url 'criar_emprestimo' %}">Adicionar empréstimo</a>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Livro</th>
+            <th>Leitor</th>
+            <th>Data de Empréstimo</th>
+            <th>Data de Devolução</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for emprestimo in emprestimos %}
+        <tr>
+            <td>
+                {% if emprestimo.livro %}
+                    {{ emprestimo.livro.titulo }}
+                {% else %}
+                    Nenhum livro
+                {% endif %}
+            </td>
+            <td>
+                {% if emprestimo.leitor %}
+                    {{ emprestimo.leitor.nome }}
+                {% else %}
+                    Nenhum leitor
+                {% endif %}
+            </td>
+            <td>{{ emprestimo.data_emprestimo }}</td>
+            <td>{{ emprestimo.data_devolucao }}</td>
+            <td>
+                <a href="{% url 'atualizar_emprestimo' emprestimo.id %}">Editar</a> |
+                <a href="{% url 'deletar_emprestimo' emprestimo.id %}">Excluir</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

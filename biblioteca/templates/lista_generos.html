@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Lista de Gêneros</h2>
+<a href="{% url 'criar_genero' %}">Adicionar gênero</a>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for genero in generos %}
+        <tr>
+            <td>{{ genero.nome }}</td>
+            <td>
+                <a href="{% url 'atualizar_genero' genero.id %}">Editar</a> |
+                <a href="{% url 'deletar_genero' genero.id %}">Excluir</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
