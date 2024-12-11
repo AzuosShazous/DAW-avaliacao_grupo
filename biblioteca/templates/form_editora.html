@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>{% if editora %}Editar{% else %}Criar{% endif %} Editora</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label>Nome: <input type="text" name="nome" value="{{ editora.nome }}" required></label>
+        <label>Endereço: <input type="text" name="endereco" value="{{ editora.endereco }}" required></label>
+        <button type="submit">Salvar</button>
+    </form>
+{% endblock %}

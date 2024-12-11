@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>{% if emprestimo %}Editar{% else %}Criar{% endif %} Empréstimo</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label>Livro:
+            <select name="livro" required>
+                <option value="">Selecione um livro</option>
+                {% for livro in livros %}
+                    <option value="{{ livro.id }}" {% if emprestimo.livro.id == livro.id %}selected{% endif %}>{{ livro.titulo }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Leitor:
+            <select name="leitor" required>
+                <option value="">Selecione um leitor</option>
+                {% for leitor in leitores %}
+                    <option value="{{ leitor.id }}" {% if emprestimo.leitor.id == leitor.id %}selected{% endif %}>{{ leitor.nome }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Data de Empréstimo: <input type="date" name="data_emprestimo" value="{{ emprestimo.data_emprestimo }}" required></label>
+        <label>Data de Devolução: <input type="date" name="data_devolucao" value="{{ emprestimo.data_devolucao }}" required></label>
+        <button type="submit">Salvar</button>
+    </form>
+{% endblock %}

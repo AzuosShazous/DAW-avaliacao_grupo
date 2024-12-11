@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Excluir Gênero</h2>
+    <p>Tem certeza de que deseja excluir o gênero {{ genero.nome }}?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Sim</button>
+        <a href="{% url 'lista_generos' %}">Cancelar</a>
+    </form>
+{% endblock %}

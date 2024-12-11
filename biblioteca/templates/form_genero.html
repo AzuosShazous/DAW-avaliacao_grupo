@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>{% if genero %}Editar{% else %}Criar{% endif %} Gênero</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label>Nome: <input type="text" name="nome" value="{{ genero.nome }}" required></label>
+        <button type="submit">Salvar</button>
+    </form>
+{% endblock %}

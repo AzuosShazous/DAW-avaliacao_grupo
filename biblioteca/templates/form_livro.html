@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>{% if livro %}Editar{% else %}Criar{% endif %} Livro</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label>Título: <input type="text" name="titulo" value="{{ livro.titulo }}" required></label>
+        <label>ISBN: <input type="number" name="isbn" value="{{ livro.isbn }}" required></label>
+        <label>Ano de Publicação: <input type="number" name="ano_publicacao" value="{{ livro.ano_publicacao }}" required></label>
+        <label>Editora:
+            <select name="editora">
+                <option value="">Selecione uma editora</option>
+                {% for editora in editoras %}
+                    <option value="{{ editora.id }}" {% if livro.editora.id == editora.id %}selected{% endif %}>{{ editora.nome }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Gênero:
+            <select name="genero">
+                <option value="">Selecione um gênero</option>
+                {% for genero in generos %}
+                    <option value="{{ genero.id }}" {% if livro.genero.id == genero.id %}selected{% endif %}>{{ genero.nome }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Autores:
+            <select name="autores" multiple>
+                {% for autor in autores %}
+                    <option value="{{ autor.id }}" {% if autor in livro.autores.all %}selected{% endif %}>{{ autor.nome }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <button type="submit">Salvar</button>
+    </form>
+{% endblock %}

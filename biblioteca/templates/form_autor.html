@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>{% if autor %}Editar{% else %}Criar{% endif %} Autor</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label>Nome: <input type="text" name="nome" value="{{ autor.nome }}" required></label>
+        <label>Data de Nascimento: <input type="date" name="data_nascimento" value="{{ autor.data_nascimento }}" required></label>
+        <label>Nacionalidade: <input type="text" name="nacionalidade" value="{{ autor.nacionalidade }}" required></label>
+        <button type="submit">Salvar</button>
+    </form>
+{% endblock %}
